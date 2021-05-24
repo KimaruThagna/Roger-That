@@ -1,9 +1,11 @@
 import pika, json
 QUEUE_NAME = 'Job_id_queue'
 EXCHANGE_NAME = 'JOB SCHEDULER EXCHANGE'
-sample_data = {"job_id":1,
+
+def random_data(value):
+    return  {"job_id":value,
                "action":'update',
-               "value":432
+               "value":value*10+value
                }
 
 # establish synchronous connection
@@ -13,7 +15,8 @@ connection = pika.BlockingConnection(
 channel = connection.channel() # create channel on next available number
 print(channel)
 channel.queue_declare(queue=QUEUE_NAME) # declare which queue youll be using. Will create if needed
-channel.basic_publish(exchange=EXCHANGE_NAME, 
-                      routing_key=QUEUE_NAME, body=json.dumps(sample_data))
+for i in range(10):
+    channel.basic_publish(exchange=EXCHANGE_NAME, 
+                      routing_key=QUEUE_NAME, body=json.dumps(random_data(i)))
 
 connection.close()

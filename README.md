@@ -13,3 +13,12 @@ docker run  --hostname my-rabbit -p 15672:15672 -p 5672:5672 --name rabbit-serve
 To run the producer `python3 producer.py`
 
 To run the consumer `python3 consumer.py`
+
+# Further reading
+Consult this [article](https://dzone.com/articles/getting-started-with-rabbitmq-python-1) to learn more about
+the different exchange types
+
+- Direct(default)
+- Topic
+- Headers
+- Fanout
